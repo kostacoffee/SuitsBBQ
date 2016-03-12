@@ -14,7 +14,24 @@
   </head>
 
   <body ng-app="main">
-
+    <div ng-controller="ajaxTest">
+    <p>data</p>
+    <p>{{data}}</p>
+    </div>
   </body>
+
+  <script>
+  
+    var app = angular.module('main', []);
+    app.controller('ajaxTest', function($scope, $http){
+      $http({
+	       method: "GET",
+               url: "https://suits:electric@members.suits.org.au/query",
+               withCredentials: true
+      }).success(function(data, status, headers, config) {
+	$scope.data = data; 
+      });
+    });
+  </script>
 
 </html>
