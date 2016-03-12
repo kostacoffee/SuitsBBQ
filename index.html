@@ -1,35 +1,71 @@
 <!DOCTYPE HTML>
 <html>
-  <head>
-  
-      <!-- Angular Material --!>
-      <link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
-      <script src="/node_modules/angular-material/angular-material.js"></script>
+	<head>
 
-      <!-- AngularJS --!>
-      <script src="/node_modules/angular/angular.js"></script>
-      <script src="/node_modules/angular-animate/angular-animate.js"></script>
-  </head>
+		<meta charset='utf-8'>
+		<script src="/node_modules/angular/angular.js"></script>
+		<script src="/node_modules/angular-animate/angular-animate.js"></script>
+		<script src="/node_modules/angular-aria/angular-aria.js"></script>
 
-  <body ng-app="main">
-    <div ng-controller="ajaxTest">
-    <p>data</p>
-    <p>{{data}}</p>
-    </div>
-  </body>
+		<link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
+		<script src="/node_modules/angular-material/angular-material.js"></script>
+		<script src="/node_modules/angular-material-icons/angular-material-icons.js"></script>
 
-  <script>
-  
-    var app = angular.module('main', []);
-    app.controller('ajaxTest', function($scope, $http){
-      $http({
-	       method: "GET",
-               url: "https://suits:electric@members.suits.org.au/query",
-               withCredentials: true
-      }).success(function(data, status, headers, config) {
-	$scope.data = data; 
-      });
-    });
+	</head>
+	<body ng-app="main" ng-controller='getUsers'>
+
+		<md-sidenav class='md-sidenav-left md-whiteframe-4dp' md-component-id='left'> 
+			<md-toolbar class='md-whiteframe-6dp'>
+				<h1 class='md-toolbar-tools'> Menu </h1>
+			</md-toolbar>
+			<md-list>
+				<md-list-item md-ink-ripple class='md-clickable' ng-click=''>
+					<p>SUITS Members</p>
+					<ng-md-icon icon='person' style='fill: grey'></md-icon>
+				</md-list-item>
+				<md-list-item md-ink-ripple class='md-clickable' ng-click=''>
+					<p>Events</p>
+					<ng-md-icon icon='event' style='fill: grey'></md-icon>
+				</md-list-item>
+			</md-list>
+		</md-sidenav>
+
+		<md-toolbar class='md-whiteframe-2dp md-toolbar-tools'>
+			<md-button class="md-icon-button" aria-label="Settings" ng-click='toggleNav()'>
+				<ng-md-icon icon="menu" style='fill: white'></ng-md-icon>
+			</md-button>
+			<h2>SUITS Events App</h2>
+			<span flex></span>
+			<md-button class='md-fab md-mini md-whiteframe-24dp'>
+				<md-icon ng-md-icon icon='add' ><md-icon>
+			<md-button>
+		</md-toolbar>
+
+		<md-list>
+			<md-list-item ng-repeat='user in users'>
+				<p>{{user.first}} {{user.last}} - {{user.access}}</p>
+			    <md-checkbox ng-model="user.attended"></md-checkbox>
+			</md-list-item>
+
+		</md-list>
+
+	</body>
+
+
+	<script>
+		var app = angular.module('main', ['ngMaterial', 'ngMdIcons']);
+		app.controller('getUsers', function($scope, $http, $mdSidenav){
+			$http({
+				method: "GET",
+				url: "https://members.suits.org.au/query",
+				withCredentials: true
+			}).success(function(data, status, headers, config) {
+				$scope.users = data.members; 
+			});
+			$scope.toggleNav = function() {
+				$mdSidenav('left').toggle();
+			}
+		});
   </script>
 
 </html>
