@@ -3,18 +3,18 @@
 	<head>
 
 		<meta charset='utf-8'>
-		<script src="/node_modules/angular/angular.js"></script>
-		<script src="/node_modules/angular-animate/angular-animate.js"></script>
-		<script src="/node_modules/angular-aria/angular-aria.js"></script>
+		<script src='/node_modules/angular/angular.js'></script>
+		<script src='/node_modules/angular-animate/angular-animate.js'></script>
+		<script src='/node_modules/angular-aria/angular-aria.js'></script>
 
-		<link rel="stylesheet" href="/node_modules/angular-material/angular-material.css">
-		<script src="/node_modules/angular-material/angular-material.js"></script>
-		<script src="/node_modules/angular-material-icons/angular-material-icons.js"></script>
+		<link rel='stylesheet' href='/node_modules/angular-material/angular-material.css'>
+		<script src='/node_modules/angular-material/angular-material.js'></script>
+		<script src='/node_modules/angular-material-icons/angular-material-icons.js'></script>
 
 	</head>
-	<body ng-app="main" ng-controller='getUsers'>
+	<body ng-app='main' ng-controller='getUsers'>
 
-		<md-sidenav class='md-sidenav-left md-whiteframe-4dp' md-component-id='left'> 
+		<md-sidenav class='md-sidenav-left md-whiteframe-4dp' md-component-id='left' style=''> 
 			<md-toolbar class='md-whiteframe-6dp'>
 				<h1 class='md-toolbar-tools'> Menu </h1>
 			</md-toolbar>
@@ -30,34 +30,38 @@
 			</md-list>
 		</md-sidenav>
 
-		<md-toolbar class='md-whiteframe-2dp md-toolbar-tools'>
-			<md-button class="md-icon-button" aria-label="Settings" ng-click='toggleNav()'>
-				<ng-md-icon icon="menu" style='fill: white'></ng-md-icon>
+		<md-toolbar class='md-whiteframe-2dp md-toolbar-tools' style='position:fixed'>
+			<md-button class='md-icon-button' aria-label='Settings' ng-click='toggleNav()'>
+				<ng-md-icon icon='menu' style='fill: white'></ng-md-icon>
 			</md-button>
-			<h2>SUITS Events App</h2>
+			<h2>SUITS Event and Attendance Management</h2>
+			<md-input-container flex>
+				<label>Search</label>
+				<input type='text' ng-model='nameFilter'/>
+			</md-input-container>	
 			<span flex></span>
 			<md-button class='md-fab md-mini md-whiteframe-24dp'>
 				<md-icon ng-md-icon icon='add' ><md-icon>
 			<md-button>
 		</md-toolbar>
-
 		<md-list>
-			<md-list-item ng-repeat='user in users'>
-				<p>{{user.first}} {{user.last}} - {{user.access}}</p>
-			    <md-checkbox ng-model="user.attended"></md-checkbox>
+			<md-list-item class='md-2-line' ng-repeat='user in users | filter:nameFilter' layout='row'>
+				<div class='md-list-item-text' layout='column'>
+					<h3>{{user.first | capitalize}} {{user.last | capitalize}}</h3>
+					<p ng-if='user.access'>{{user.access}}</p>
+					<p ng-if='!user.access'>NO ACCESS</p>
+				</div>
+			    <md-checkbox class='md-secondary'  ng-model='user.attended'></md-checkbox>
 			</md-list-item>
-
 		</md-list>
-
 	</body>
-
 
 	<script>
 		var app = angular.module('main', ['ngMaterial', 'ngMdIcons']);
 		app.controller('getUsers', function($scope, $http, $mdSidenav){
 			$http({
-				method: "GET",
-				url: "https://members.suits.org.au/query",
+				method: 'GET',
+				url: 'https://suits:electric@members.suits.org.au/query',
 				withCredentials: true
 			}).success(function(data, status, headers, config) {
 				$scope.users = data.members; 
@@ -66,6 +70,10 @@
 				$mdSidenav('left').toggle();
 			}
 		});
+		app.filter('capitalize', function() {
+			return function(input) {
+      			return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+			}
+		});
   </script>
-
 </html>
