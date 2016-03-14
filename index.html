@@ -3,19 +3,53 @@
 	<head>
 
 		<meta charset='utf-8'>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
 		<script src='/node_modules/angular/angular.js'></script>
 		<script src='/node_modules/angular-animate/angular-animate.js'></script>
 		<script src='/node_modules/angular-aria/angular-aria.js'></script>
-
 		<link rel='stylesheet' href='/node_modules/angular-material/angular-material.css'>
 		<script src='/node_modules/angular-material/angular-material.js'></script>
 		<script src='/node_modules/angular-material-icons/angular-material-icons.js'></script>
 
+		<style>
+			#search .md-errors-spacer {
+			    min-height: 0;
+			}
+		</style>
 	</head>
-	<body ng-app='main' ng-controller='getUsers'>
+	<body ng-app='main' ng-controller='getUsers' layout='column'>
 
-		<md-sidenav class='md-sidenav-left md-whiteframe-4dp' md-component-id='left' style=''> 
-			<md-toolbar class='md-whiteframe-6dp'>
+		<md-toolbar class='md-whiteframe-1dp site-content-toolbar'>
+			<div class='md-toolbar-tools'>
+				<md-button class='md-icon-button' aria-label='Settings' ng-click='toggleNav()'>
+					<ng-md-icon icon='menu' style='fill: white'></ng-md-icon>
+				</md-button>
+				<h2>
+				<span>SUITS Events</span>
+				</h2>
+				<span flex></span>	
+				<md-input-container flex id='search'>
+					<input ng-model='nameFilter' placeholder="Search">
+				</md-input-container>
+			</div>
+		</md-toolbar>
+
+		<md-content flex layout-padding>
+			<md-list>
+				<md-list-item class='md-2-line' ng-repeat='user in users | filter:nameFilter' layout='row'>
+					<div class='md-list-item-text' layout='column'>
+						<h3>{{user.first | capitalize}} {{user.last | capitalize}}</h3>
+						<p ng-if='user.access'>{{user.access}}</p>
+						<p ng-if='!user.access'>NO ACCESS</p>
+					</div>
+				    <md-checkbox class='md-secondary'  ng-model='user.attended'></md-checkbox>
+				<md-divider></md-divider>
+				</md-list-item>
+			</md-list>
+		</md-content>
+
+		<md-sidenav class='md-sidenav-left md-whiteframe-2dp' md-component-id='left' style=''> 
+			<md-toolbar class='md-whiteframe-4dp'>
 				<h1 class='md-toolbar-tools'> Menu </h1>
 			</md-toolbar>
 			<md-list>
@@ -30,30 +64,6 @@
 			</md-list>
 		</md-sidenav>
 
-		<md-toolbar class='md-whiteframe-2dp md-toolbar-tools' style='position:fixed'>
-			<md-button class='md-icon-button' aria-label='Settings' ng-click='toggleNav()'>
-				<ng-md-icon icon='menu' style='fill: white'></ng-md-icon>
-			</md-button>
-			<h2>SUITS Event and Attendance Management</h2>
-			<md-input-container flex>
-				<label>Search</label>
-				<input type='text' ng-model='nameFilter'/>
-			</md-input-container>	
-			<span flex></span>
-			<md-button class='md-fab md-mini md-whiteframe-24dp'>
-				<md-icon ng-md-icon icon='add' ><md-icon>
-			<md-button>
-		</md-toolbar>
-		<md-list>
-			<md-list-item class='md-2-line' ng-repeat='user in users | filter:nameFilter' layout='row'>
-				<div class='md-list-item-text' layout='column'>
-					<h3>{{user.first | capitalize}} {{user.last | capitalize}}</h3>
-					<p ng-if='user.access'>{{user.access}}</p>
-					<p ng-if='!user.access'>NO ACCESS</p>
-				</div>
-			    <md-checkbox class='md-secondary'  ng-model='user.attended'></md-checkbox>
-			</md-list-item>
-		</md-list>
 	</body>
 
 	<script>
