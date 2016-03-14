@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-
+		<title> SUITS Management </title>
 		<meta charset='utf-8'>
 		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
 		<script src='/node_modules/angular/angular.js'></script>
@@ -22,20 +22,21 @@
 		<md-toolbar class='md-whiteframe-1dp site-content-toolbar'>
 			<div class='md-toolbar-tools'>
 				<md-button class='md-icon-button' aria-label='Settings' ng-click='toggleNav()'>
-					<ng-md-icon icon='menu' style='fill: white'></ng-md-icon>
+					<md-icon ng-md-icon icon='menu' style='fill: white'></md-icon>
 				</md-button>
 				<h2>
 				<span>SUITS Events</span>
 				</h2>
-				<span flex></span>	
-				<md-input-container flex id='search'>
+				<span flex></span>
+				<md-icon ng-md-icon icon='search' style='fill: white'></md-icon>	
+				<md-input-container md-no-float flex id='search'>
 					<input ng-model='nameFilter' placeholder="Search">
 				</md-input-container>
 			</div>
 		</md-toolbar>
 
 		<md-content flex layout-padding>
-			<md-list>
+			<md-list layout='column'>
 				<md-list-item class='md-2-line' ng-repeat='user in users | filter:nameFilter' layout='row'>
 					<div class='md-list-item-text' layout='column'>
 						<h3>{{user.first | capitalize}} {{user.last | capitalize}}</h3>
@@ -48,33 +49,50 @@
 			</md-list>
 		</md-content>
 
-		<md-sidenav class='md-sidenav-left md-whiteframe-2dp' md-component-id='left' style=''> 
-			<md-toolbar class='md-whiteframe-4dp'>
-				<h1 class='md-toolbar-tools'> Menu </h1>
+		<md-sidenav class='md-sidenav-left md-whiteframe-2dp' md-component-id='left'> 
+			<md-toolbar class='md-whiteframe-1dp'>
+				<h2 class='md-toolbar-tools'>
+					<span>Menu</span>
+				</h2>
 			</md-toolbar>
-			<md-list>
-				<md-list-item md-ink-ripple class='md-clickable' ng-click=''>
-					<p>SUITS Members</p>
-					<ng-md-icon icon='person' style='fill: grey'></md-icon>
-				</md-list-item>
-				<md-list-item md-ink-ripple class='md-clickable' ng-click=''>
-					<p>Events</p>
-					<ng-md-icon icon='event' style='fill: grey'></md-icon>
-				</md-list-item>
-			</md-list>
+			
+			<md-content layout-padding>
+				<md-list layout='column'>
+					<md-list-item md-ink-ripple class='md-clickable' ng-click=''>
+						<p>SUITS Members</p>
+						<md-icon ng-md-icon icon='person' style='fill: grey'></md-icon>
+					</md-list-item>
+					<md-list-item md-ink-ripple class='md-clickable' ng-click=''>
+						<p>Events</p>
+						<md-icon ng-md-icon icon='event' style='fill: grey'></md-icon>
+					</md-list-item>				
+				</md-list>
+			</md-content>
 		</md-sidenav>
 
 	</body>
 
 	<script>
 		var app = angular.module('main', ['ngMaterial', 'ngMdIcons']);
-		app.controller('getUsers', function($scope, $http, $mdSidenav){
+		app.controller('getUsers', function($scope, $http, $mdSidenav, $mdDialog){
+			var showLogin = function() {
+				$mdDialog.show({
+					controller: 'getUsers',
+					templateUrl: 'loginDialog.html',
+					parent: angular.element(document.body),
+					clickOutsideToClose: true
+				});
+			};
+			var user = '';
+			var pass = '';
 			$http({
 				method: 'GET',
-				url: 'https://suits:electric@members.suits.org.au/query',
+				url: 'https://'+user+':'+pass+'@members.suits.org.au/query',
 				withCredentials: true
-			}).success(function(data, status, headers, config) {
-				$scope.users = data.members; 
+			}).then(function(response) {
+				$scope.users = response.data.members; 
+			}, function(response){
+				showLogin();
 			});
 			$scope.toggleNav = function() {
 				$mdSidenav('left').toggle();

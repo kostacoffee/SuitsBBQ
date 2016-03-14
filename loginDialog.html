@@ -1,0 +1,17 @@
+<md-dialog layout-padding>
+	<md-input-container>
+		<label>Email</label>
+		<input type='email' name='email' required ng-model='project.email'>
+		<div ng-messages='loginForm.email.$error' ng-if='loginForm.email.$dirty'>
+			<div ng-message='required'>This is required.</div>
+		</div>
+	</md-input-container>
+	<md-input-container>
+		<label>Password</label>
+		<input type='password' name='password' required ng-model='project.password'>
+		<div ng-messages='loginForm.password.$error' ng-if='loginForm.password.$dirty'>
+			<div ng-message='required'>This is required.</div>
+		</div>
+	</md-input-container>
+	<md-button ng-click='login()' class='md-raised md-primary'>Login</md-button>
+</md-dialog>
