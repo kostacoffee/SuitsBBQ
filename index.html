@@ -10,6 +10,9 @@
 		<link rel='stylesheet' href='/node_modules/angular-material/angular-material.css'>
 		<script src='/node_modules/angular-material/angular-material.js'></script>
 		<script src='/node_modules/angular-material-icons/angular-material-icons.js'></script>
+		<script src='/mainApp.js'></script>
+		<script src='/controllers.js'></script>
+		<script src='/services.js'></script>
 
 		<style>
 			#search .md-errors-spacer {
@@ -17,7 +20,7 @@
 			}
 		</style>
 	</head>
-	<body ng-app='main' ng-controller='getUsers' layout='column'>
+	<body ng-app='main' ng-controller='viewUsers' layout='column'>
 
 		<md-toolbar class='md-whiteframe-1dp site-content-toolbar'>
 			<div class='md-toolbar-tools'>
@@ -71,37 +74,4 @@
 		</md-sidenav>
 
 	</body>
-
-	<script>
-		var app = angular.module('main', ['ngMaterial', 'ngMdIcons']);
-		app.controller('getUsers', function($scope, $http, $mdSidenav, $mdDialog){
-			var showLogin = function() {
-				$mdDialog.show({
-					controller: 'getUsers',
-					templateUrl: 'loginDialog.html',
-					parent: angular.element(document.body),
-					clickOutsideToClose: true
-				});
-			};
-			var user = '';
-			var pass = '';
-			$http({
-				method: 'GET',
-				url: 'https://'+user+':'+pass+'@members.suits.org.au/query',
-				withCredentials: true
-			}).then(function(response) {
-				$scope.users = response.data.members; 
-			}, function(response){
-				showLogin();
-			});
-			$scope.toggleNav = function() {
-				$mdSidenav('left').toggle();
-			}
-		});
-		app.filter('capitalize', function() {
-			return function(input) {
-      			return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
-			}
-		});
-  </script>
 </html>
