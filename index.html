@@ -40,13 +40,12 @@
 
 		<md-content flex layout-padding>
 			<md-list layout='column'>
-				<md-list-item class='md-2-line' ng-repeat='user in users | filter:nameFilter' layout='row'>
+				<md-list-item class='md-2-line md-clickable' md-ink-ripple ng-repeat='user in users | filter:nameFilter' layout='row' ng-click='showDialog($event, user)'>
 					<div class='md-list-item-text' layout='column'>
 						<h3>{{user.first | capitalize}} {{user.last | capitalize}}</h3>
 						<p ng-if='user.access'>{{user.access}}</p>
 						<p ng-if='!user.access'>NO ACCESS</p>
 					</div>
-				    <md-checkbox class='md-secondary'  ng-model='user.attended'></md-checkbox>
 				<md-divider></md-divider>
 				</md-list-item>
 			</md-list>
@@ -58,7 +57,6 @@
 					<span>Menu</span>
 				</h2>
 			</md-toolbar>
-			
 			<md-content layout-padding>
 				<md-list layout='column'>
 					<md-list-item md-ink-ripple class='md-clickable' ng-click=''>
