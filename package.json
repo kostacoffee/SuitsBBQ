@@ -1,7 +1,6 @@
 {
   "name": "suits",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,13 +8,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "angular": "^1.5.0",
-    "angular-animate": "^1.5.0",
-    "angular-aria": "^1.5.0",
-    "angular-material": "^1.0.6",
-    "angular-material-icons": "file:node_modules/angular-material-icons",
-    "angular-messages": "^1.5.0",
     "connect": "^3.4.1",
     "serve-static": "^1.10.2"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
