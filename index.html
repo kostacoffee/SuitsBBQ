@@ -9,7 +9,7 @@
 		<script src='/bower_components/angular-aria/angular-aria.min.js'></script>
 		<link rel='stylesheet' href='/bower_components/angular-material/angular-material.css'>
 		<script src='/bower_components/angular-material/angular-material.min.js'></script>
-		<script src='/bower_components/angular-material-icons/angular-material-icons.min.js'></script>
+		<script src='/bower_components/angular-material-icons/angular-material-icons.min.js'></script>  
 		<script src='/mainApp.js'></script>
 		<script src='/controllers.js'></script>
 		<script src='/services.js'></script>
@@ -18,62 +18,30 @@
 			#search .md-errors-spacer {
 			    min-height: 0;
 			}
+			md-tabs.noTabPanel md-tabs-wrapper {
+ 			   display: none !important;
+			}
 		</style>
 	</head>
-	<body ng-app='main' ng-controller='viewUsers' layout='column'>
+	<body ng-app='main' layout='column'>
 
-		<md-toolbar class='md-whiteframe-1dp site-content-toolbar'>
-			<div class='md-toolbar-tools'>
-				<md-button class='md-icon-button' aria-label='Settings' ng-click='toggleNav()'>
-					<md-icon ng-md-icon icon='menu' style='fill: white'></md-icon>
-				</md-button>
-				<h2>
-				<span>SUITS Events</span>
-				</h2>
-				<span flex></span>
-				<md-icon ng-md-icon icon='search' style='fill: white'></md-icon>	
-				<md-input-container md-no-float flex id='search'>
-					<input ng-model='nameFilter' placeholder="Search">
-				</md-input-container>
-			</div>
+		<md-toolbar class='md-whiteframe-1dp' style="min-height: 0px">
+			<md-tabs md-selected='currentTab'>
+				<md-tab id='users'>Attendance</md-tab>
+				<md-tab id='analytics'>Analytics</md-tab>
+			</md-tabs>
 		</md-toolbar>
 
-		<md-content flex layout-padding>
-			<md-progress-circular  md-mode='indeterminate' ng-show='isLoading' style='margin: auto'></md-progress-circular>
-			<md-list layout='column'>
-				<md-list-item class='md-2-line md-clickable' md-ink-ripple ng-repeat='user in users | filter:nameFilter | limitTo:10' layout='row' ng-click='showDialog($event, user)'>
-					<div class='md-list-item-text' layout='column'>
-						<h3>{{user.first | capitalize}} {{user.last | capitalize}}</h3>
-						<p>{{user.access}}</p>
-					</div>
-				<md-divider></md-divider>
-				</md-list-item>
-			</md-list>
+		<md-content flex>
+			<md-tabs md-stretch-tabs='always' md-dynamic-height md-selected='currentTab' class='noTabPanel'>
+				<md-tab label='Attendance'>
+					<div ng-include="'templates/users.html'" ng-controller='viewUsers'></div>
+				</md-tab>
+				<md-tab label='Analytics'>
+					<div ng-include="'templates/analytics.html'"></div>
+				</md-tab>
+			</md-tabs>
 		</md-content>
-
-		<md-sidenav class='md-sidenav-left md-whiteframe-2dp' md-component-id='left'> 
-			<md-toolbar class='md-whiteframe-1dp'>
-				<h2 class='md-toolbar-tools'>
-					<span>Menu</span>
-				</h2>
-			</md-toolbar>
-			<md-content layout-padding>
-				<md-list layout='column'>
-					<md-list-item md-ink-ripple class='md-clickable' ng-click=''>
-						<p>SUITS Members</p>
-						<md-icon ng-md-icon icon='person' style='fill: grey'></md-icon>
-					</md-list-item>
-					<md-list-item md-ink-ripple class='md-clickable' ng-click=''>
-						<p>Events</p>
-						<md-icon ng-md-icon icon='event' style='fill: grey'></md-icon>
-					</md-list-item>
-					<md-list-item md-ink-ripple class='md-clickable' ng-click=''>
-						<p>Analytics</p>
-						<md-icon ng-md-icon icon='insert_chart' style='fill: grey'></md-icon>
-					</md-list-item>
-				</md-list>
-			</md-content>
-		</md-sidenav>
 
 	</body>
 </html>

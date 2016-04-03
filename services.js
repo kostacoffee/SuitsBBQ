@@ -5,13 +5,13 @@ appServices.service('userService', function($http){
 	this.getUsers = function() {
 		return $http({
 			method: 'GET',
-			url: 'https://suits:electric@members.suits.org.au/query',
+			url: 'https://suits:UfKSdkWGD91x2j52BkaJ173EpM0H2ePW@members.suits.org.au/query',
 			withCredentials: true
 		}).then(function(response) {
 			members = response.data.members;
 			for (var i = 0; i < members.length; i++){
 				var member = members[i];
-				member.boughtBBQ = true;
+				member.boughtBBQ = false;
 				member.drinks = 0;
 				if (member.access == null)
 					member.access = 'NO ACCESS';

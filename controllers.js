@@ -9,7 +9,7 @@ appControllers.controller('viewUsers', function($scope, $mdDialog, userService){
 	$scope.showDialog = function (ev, user) {
 		$mdDialog.show({
 			controller : 'dialogController',
-			templateUrl : 'loginDialog.html',
+			templateUrl : '/templates/bbqDialog.html',
 			parent : angular.element(document.body),
 			clickOutsideToClose : true,
 			targetEvent : ev,
