@@ -9,14 +9,17 @@ appControllers.controller('viewUsers', function($scope, $mdDialog, userService){
 	$scope.showDialog = function (ev, user) {
 		$mdDialog.show({
 			controller : 'dialogController',
-			templateUrl : '/templates/bbqDialog.html',
+			templateUrl : '/templates/attendanceDialog.html',
 			parent : angular.element(document.body),
 			clickOutsideToClose : true,
 			targetEvent : ev,
 			locals:{
 				user : user
 			}
+		}).then(function(){
+			userService.updateMember(user);
 		})
+
 	}
 });
 
@@ -25,4 +28,8 @@ appControllers.controller('dialogController', function($scope, $mdDialog, user){
 		$mdDialog.hide();
 	}
 	$scope.user = user;
+});
+
+appControllers.controller('analyticsController', function($scope, userService) {
+	$scope.getAttendees = userService.getAttendees;
 });

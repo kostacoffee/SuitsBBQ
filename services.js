@@ -19,6 +19,12 @@ appServices.service('userService', function($http){
 			return members; 
 		});
 	}
+
+	this.updateMember = function(member){
+		var toUpdate = members.filter(function(m){m.sid=member.sid});
+		toUpdate = member;
+	}
+
 	this.getAttendees = function() {
 		var attendees = []
 		for (var i = 0; i < members.length; i++){

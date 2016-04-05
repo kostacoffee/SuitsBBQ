@@ -15,9 +15,6 @@
 		<script src='/services.js'></script>
 
 		<style>
-			#search .md-errors-spacer {
-			    min-height: 0;
-			}
 			md-tabs.noTabPanel md-tabs-wrapper {
  			   display: none !important;
 			}
@@ -35,10 +32,10 @@
 		<md-content flex>
 			<md-tabs md-stretch-tabs='always' md-dynamic-height md-selected='currentTab' class='noTabPanel'>
 				<md-tab label='Attendance'>
-					<div ng-include="'templates/users.html'" ng-controller='viewUsers'></div>
+					<div ng-include="'templates/attendance.html'" ng-controller='viewUsers'></div>
 				</md-tab>
 				<md-tab label='Analytics'>
-					<div ng-include="'templates/analytics.html'"></div>
+					<div ng-include="'templates/report.html'" ng-controller='analyticsController'></div>
 				</md-tab>
 			</md-tabs>
 		</md-content>
