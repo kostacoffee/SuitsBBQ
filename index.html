@@ -25,7 +25,7 @@
 		<md-toolbar class='md-whiteframe-1dp' style="min-height: 0px">
 			<md-tabs md-selected='currentTab'>
 				<md-tab id='users'>Attendance</md-tab>
-				<md-tab id='analytics'>Analytics</md-tab>
+				<md-tab id='analytics'>Report</md-tab>
 			</md-tabs>
 		</md-toolbar>
 
@@ -34,8 +34,8 @@
 				<md-tab label='Attendance'>
 					<div ng-include="'templates/attendance.html'" ng-controller='viewUsers'></div>
 				</md-tab>
-				<md-tab label='Analytics'>
-					<div ng-include="'templates/report.html'" ng-controller='analyticsController'></div>
+				<md-tab label='Report'>
+					<div ng-include="'templates/report.html'" ng-controller='reportController'></div>
 				</md-tab>
 			</md-tabs>
 		</md-content>

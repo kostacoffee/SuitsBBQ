@@ -8,7 +8,7 @@ appControllers.controller('viewUsers', function($scope, $mdDialog, userService){
 	});
 	$scope.showDialog = function (ev, user) {
 		$mdDialog.show({
-			controller : 'dialogController',
+			controller : 'attendanceDialogController',
 			templateUrl : '/templates/attendanceDialog.html',
 			parent : angular.element(document.body),
 			clickOutsideToClose : true,
@@ -16,20 +16,38 @@ appControllers.controller('viewUsers', function($scope, $mdDialog, userService){
 			locals:{
 				user : user
 			}
-		}).then(function(){
-			userService.updateMember(user);
-		})
-
+		});
+	}
+	$scope.addAttendee = function(ev) {
+		$mdDialog.show({
+			controller : 'addAttendeeController',
+			templateUrl : '/templates/addAttendeeDialog.html',
+			parent : angular.element(document.body),
+			clickOutsideToClose : true,
+			targetEvent : ev
+		}).then(function(attendee){
+			$scope.users.push(attendee);
+		});
 	}
 });
 
-appControllers.controller('dialogController', function($scope, $mdDialog, user){
+appControllers.controller('addAttendeeController', function($scope, $mdDialog){
+	$scope.addAttendee = function() {
+		$mdDialog.hide($scope.attendee);
+	}
+	$scope.cancel = function() {
+		$mdDialog.cancel();
+	}
+	$scope.attendee = {}; 
+});
+
+appControllers.controller('attendanceDialogController', function($scope, $mdDialog, user){
 	$scope.hide = function(){
 		$mdDialog.hide();
 	}
 	$scope.user = user;
 });
 
-appControllers.controller('analyticsController', function($scope, userService) {
+appControllers.controller('reportController', function($scope, userService) {
 	$scope.getAttendees = userService.getAttendees;
 });

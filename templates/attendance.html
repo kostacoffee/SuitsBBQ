@@ -10,6 +10,7 @@
 	}
 	.right-button{
 		margin-right: 38px;
+		background-color: rgb(63,81,181)!important; /* matches the toolbar */
 	}
 </style>
 <md-content flex layout-padding>
@@ -18,7 +19,7 @@
 			<label>Search</label>
 			<input ng-model='nameFilter'>
 		</md-input-container>
-		<md-button class='md-fab md-mini right-button'>
+		<md-button class='md-fab md-mini right-button' ng-click='addAttendee($event)' aria-label='Add Attendee'>
 			<md-icon ng-md-icon icon='person_add'></md-icon>
 		</md-button>	
 	</div>
@@ -30,7 +31,6 @@
 				<p>{{user.access}}</p>
 			</div>
 			<md-checkbox ng-class='(user.boughtBBQ || user.drinks > 0)? "md-checked":""' disabled class='md-secondatry'>
-		<md-divider></md-divider>
 		</md-list-item>
 	</md-list>
 </md-content>
