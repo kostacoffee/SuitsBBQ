@@ -27,12 +27,16 @@ appControllers.controller('viewUsers', function($scope, $mdDialog, userService){
 			targetEvent : ev
 		}).then(function(attendee){
 			$scope.users.push(attendee);
+			$scope.showDialog(ev, attendee);
 		});
 	}
 });
 
 appControllers.controller('addAttendeeController', function($scope, $mdDialog){
 	$scope.addAttendee = function() {
+		if ($scope.attendee.first == null || $scope.attendee.last == null)
+			return;
+		$scope.attendee.isMember = false;
 		$mdDialog.hide($scope.attendee);
 	}
 	$scope.cancel = function() {
@@ -43,6 +47,7 @@ appControllers.controller('addAttendeeController', function($scope, $mdDialog){
 
 appControllers.controller('attendanceDialogController', function($scope, $mdDialog, user){
 	$scope.hide = function(){
+		$scope.user.drinks = parseInt($scope.user.drinks);
 		$mdDialog.hide();
 	}
 	$scope.user = user;
@@ -50,4 +55,17 @@ appControllers.controller('attendanceDialogController', function($scope, $mdDial
 
 appControllers.controller('reportController', function($scope, userService) {
 	$scope.getAttendees = userService.getAttendees;
+	$scope.downloadAttendeesJson = function() {
+		var fileName = 'attendees.json';
+		var downloadLink = document.createElement('a');
+		document.body.appendChild(downloadLink);
+		downloadLink.style = 'display: none;';
+		var data = new Blob([JSON.stringify({attendees : $scope.getAttendees().all()})], {type: 'application/json'});
+		var dataUrl = window.URL.createObjectURL(data);
+		downloadLink.href = dataUrl;
+		downloadLink.download = fileName;
+		downloadLink.click();
+		downloadLink.remove();
+	}
+	
 });

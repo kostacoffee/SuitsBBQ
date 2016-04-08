@@ -1,11 +1,12 @@
 <md-dialog layout-padding>
-	<md-checkbox ng-model='user.boughtBBQ' layout-padding>
-		<label>Bought BBQ</label>
-	</md-checkbox>
-	<label>Drinks Purchased</label>	
-	<md-radio-group ng-model='user.drinks' layout='row'>
-		<md-radio-button ng-repeat="num in [0, 1, 2, 3]" value='{{num}}'>{{num}}</md-radio-button>
-	</md-radio-group>
-	<md-divider></md-divider>
-	<md-button ng-click='hide()'>Close</md-button>
+	<form name='attendanceForm'>
+		<md-checkbox ng-model='user.boughtBBQ' layout-padding>
+			<label>Bought BBQ</label>
+		</md-checkbox>
+		<p>Drinks Purchased</p>
+		<md-radio-group ng-model='user.drinks' layout='row'>
+			<md-radio-button ng-repeat="num in [0, 1, 2, 3]" value='{{num}}'>{{num}}</md-radio-button>
+		</md-radio-group>
+		<md-button ng-click='hide()'>Close</md-button>
+	</form>
 </md-dialog>

@@ -13,21 +13,29 @@ appServices.service('userService', function($http){
 				var member = members[i];
 				member.boughtBBQ = false;
 				member.drinks = 0;
-				if (member.access == null)
-					member.access = 'NO ACCESS';
+				member.isMember = true;
 			}
 			return members; 
 		});
 	}
 
 	this.getAttendees = function() {
-		var attendees = []
-		for (var i = 0; i < members.length; i++){
-			var member = members[i];
-			if (member.boughtBBQ || member.drinks > 0){
-				attendees.push(member);
+		return{
+			all : function() {
+				return members.filter(member => (member.drinks > 0 || member.boughtBBQ));
+			},
+			members : function() {
+				return this.all().filter(member => (member.isMember));	
+			},
+			nonMembers: function() {
+				return this.all().filter(member => (!member.isMember));
+			},
+			nonAccess: function() {
+				return this.all().filter(member => (member.access == null));
+			},
+			access: function() {
+				return this.all().filter(member => (member.access != null));
 			}
 		}
-		return attendees;
 	}
 });

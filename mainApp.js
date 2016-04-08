@@ -1,9 +1,8 @@
-var app = angular.module('main', ['ngMaterial', 'ngMdIcons', 'appServices', 'appControllers'])
-.run(function($rootScope, $mdSidenav){
-	$rootScope.toggleNav = function() {
-		$mdSidenav('left').toggle();
-	}
-});
+var app = angular.module('main', ['ngMaterial', 'appServices', 'appControllers'])
+
+app.config(function($mdIconProvider) {
+	$mdIconProvider.defaultIconSet('/static/material-icons.svg');
+})
 
 app.filter('capitalize', function() {
 	return function(input) {

@@ -19,8 +19,11 @@
 			<label>Search</label>
 			<input ng-model='nameFilter'>
 		</md-input-container>
-		<md-button class='md-fab md-mini right-button' ng-click='addAttendee($event)' aria-label='Add Attendee'>
-			<md-icon ng-md-icon icon='person_add'></md-icon>
+		<md-button class='md-fab md-mini right-button md-whiteframe-24dp' md-ink-ripple ng-click='addAttendee($event)' aria-label='Add Attendee'>
+			<md-tooltip>
+				Add Attendee
+			</md-tooltip>
+			<md-icon md-svg-icon='account-plus'></md-icon>
 		</md-button>	
 	</div>
 	<md-progress-circular  md-mode='indeterminate' ng-show='isLoading' style='margin: auto'></md-progress-circular>
@@ -28,7 +31,8 @@
 		<md-list-item class='md-2-line md-clickable' md-ink-ripple ng-repeat='user in users | filter:nameFilter | limitTo:9' layout='row' ng-click='showDialog($event, user)'>
 			<div class='md-list-item-text' layout='column'>
 				<h3>{{user.first | capitalize}} {{user.last | capitalize}}</h3>
-				<p>{{user.access}}</p>
+				<p ng-if='user.access != null'>{{user.access}}</p>
+				<p ng-if='user.access == null'>NO ACCESS</p>
 			</div>
 			<md-checkbox ng-class='(user.boughtBBQ || user.drinks > 0)? "md-checked":""' disabled class='md-secondatry'>
 		</md-list-item>

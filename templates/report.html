@@ -1,3 +1,30 @@
+<style>
+	.report-header{
+		align-items: center;
+	}
+	.attendees-list{
+		max-width: 30%;
+	}
+</style>
 <md-content flex layout-padding>
-	<h2 >{{getAttendees().length}}</label>
+	<div layout='row' layout-align='space-around center'>
+		<label>Total Attendees: {{getAttendees().all().length}}</label>
+		<label>Members: {{getAttendees().members().length}}</label>
+		<label>Non-Members: {{getAttendees().nonMembers().length}}</label>
+		<label>Non-Access: {{getAttendees().nonAccess().length}}</label>
+	</div>
+	<md-list layout='column' class='attendees-list'>
+		<div layout='row' class='report-header'>
+			<h3>Access Holders</h3>
+			<md-button class='md-icon-button'><md-icon md-svg-icon='file-excel-box'></md-icon></md-button>
+			<md-button class='md-icon-button' ng-click='downloadAttendeesJson()'><md-icon md-svg-icon='json'></md-icon></md-button>
+		</div>
+		<md-list-item class='md-2-line' ng-repeat='attendee in getAttendees().access()' layout='row'>
+			<div class='md-list-item-text' layout='column'>
+				<h3>{{attendee.access}}</h3>
+				<p>{{attendee.first | capitalize}} {{attendee.last | capitalize}}</p>
+			</div>
+			<md-divider></md-divider>
+		</md-list-item>
+	</md-list>
 </md-content>
