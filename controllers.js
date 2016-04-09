@@ -67,5 +67,12 @@ appControllers.controller('reportController', function($scope, userService) {
 		downloadLink.click();
 		downloadLink.remove();
 	}
-	
+	$scope.totalBBQ = function() { return userService.getAttendees().access().filter(p => p.boughtBBQ).length; }
+	$scope.totalDrinks =  function() {
+		var d = 0;
+		var data = userService.getAttendees().access();
+		for  (var i = 0; i < data.length; i++)
+			d += data[i].drinks;
+		return d;
+	}
 });

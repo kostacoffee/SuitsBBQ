@@ -1,0 +1,2 @@
+Integrate with Firebase, so we dont have to save jsons all the time.
+Reduce wasted whitespace.

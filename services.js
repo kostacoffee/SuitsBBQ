@@ -5,7 +5,7 @@ appServices.service('userService', function($http){
 	this.getUsers = function() {
 		return $http({
 			method: 'GET',
-			url: 'https://suits:UfKSdkWGD91x2j52BkaJ173EpM0H2ePW@members.suits.org.au/query',
+			url: 'https:/members.suits.org.au/query',
 			withCredentials: true
 		}).then(function(response) {
 			members = response.data.members;
@@ -25,7 +25,7 @@ appServices.service('userService', function($http){
 				return members.filter(member => (member.drinks > 0 || member.boughtBBQ));
 			},
 			members : function() {
-				return this.all().filter(member => (member.isMember));	
+				return this.all().filter(member => (member.isMember || member.access != null));	//all members must have access
 			},
 			nonMembers: function() {
 				return this.all().filter(member => (!member.isMember));

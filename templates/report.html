@@ -1,9 +1,19 @@
 <style>
-	.report-header{
-		align-items: center;
+
+	.attendees-list-container{
+		max-width: 500px;
+		margin: auto;
 	}
 	.attendees-list{
-		max-width: 30%;
+		max-height : 65vh;
+		overflow: auto;
+	}
+	.bbq-container{
+		display: inline-flex;
+		align-items: center;
+	}
+	.bbq-check{
+		padding-left: 0.1em;
 	}
 </style>
 <md-content flex layout-padding>
@@ -13,18 +23,51 @@
 		<label>Non-Members: {{getAttendees().nonMembers().length}}</label>
 		<label>Non-Access: {{getAttendees().nonAccess().length}}</label>
 	</div>
-	<md-list layout='column' class='attendees-list'>
-		<div layout='row' class='report-header'>
-			<h3>Access Holders</h3>
-			<md-button class='md-icon-button'><md-icon md-svg-icon='file-excel-box'></md-icon></md-button>
-			<md-button class='md-icon-button' ng-click='downloadAttendeesJson()'><md-icon md-svg-icon='json'></md-icon></md-button>
-		</div>
-		<md-list-item class='md-2-line' ng-repeat='attendee in getAttendees().access()' layout='row'>
-			<div class='md-list-item-text' layout='column'>
-				<h3>{{attendee.access}}</h3>
-				<p>{{attendee.first | capitalize}} {{attendee.last | capitalize}}</p>
-			</div>
+	<div layout='row' layout-align='center center' class='attendees-list-container' flex>
+		<md-card flex>
+			<md-card-title layout='row' layout-align='center center'>
+				<md-card-title-text>
+					<span class='md-headline'>Attendees</span>
+					<span flex></span>
+				</md-card-title-text>
+				<span flex></span>
+				<md-card-title-text>
+					<span class='md-subhead' layout='column'>
+							<label>Total BBQ: {{totalBBQ()}}</label>
+							<label>Total Drinks: {{totalDrinks()}}</label>
+					</span>
+				</md-card-title-text>
+			</md-card-title>
 			<md-divider></md-divider>
-		</md-list-item>
-	</md-list>
+			<md-card-content layout='column' class='attendees-list'>
+				<md-list layout='column'>			
+					<md-list-item class='md-2-line' ng-repeat='attendee in getAttendees().all()' layout='row'>
+						<div class='md-list-item-text' layout='column'>
+							<h3>{{attendee.access}}</h3>
+							<p>{{attendee.first | capitalize}} {{attendee.last | capitalize}}</p>
+						</div>
+						<span flex></span>
+						<div class='md-list-item-text'>
+							<div class='bbq-container'>
+								<h3>BBQ: </h3>
+								<md-icon class='bbq-check' md-svg-icon='check' ng-if='attendee.boughtBBQ'></md-icon>
+							</div>
+							<p>Drinks: {{attendee.drinks}}</p>
+						</div>
+						<md-divider></md-divider>
+					</md-list-item>
+				</md-list>
+			<div layout='row' layout-align='space-around center'>
+				
+			</div>
+			</md-card-content>
+			<md-divider></md-divider>
+			<md-card-actions layout='row' layout-align='end center'>
+				<md-button class='md-icon-button'><md-icon md-svg-icon='file-excel-box'></md-icon></md-button>
+				<md-button class='md-icon-button' ng-click='downloadAttendeesJson()'><md-icon md-svg-icon='json'></md-icon></md-button>
+				<span flex></span>
+				<md-button class='md-icon-button' ng-click='uploadAttendees()'><md-icon md-svg-icon='upload'></md-icon></md-button>
+			</md-card-actions>
+		</md-card>
+	</div>
 </md-content>
