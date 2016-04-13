@@ -37,6 +37,7 @@ appControllers.controller('addAttendeeController', function($scope, $mdDialog){
 		if ($scope.attendee.first == null || $scope.attendee.last == null)
 			return;
 		$scope.attendee.isMember = false;
+		$scope.attendee.drinks = 0;
 		$mdDialog.hide($scope.attendee);
 	}
 	$scope.cancel = function() {
