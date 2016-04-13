@@ -54,19 +54,22 @@ appControllers.controller('attendanceDialogController', function($scope, $mdDial
 	$scope.user = user;
 });
 
+function makeDownload(data, filename){
+	var downloadLink = document.createElement('a');
+	document.body.appendChild(downloadLink);
+	downloadLink.style = 'display: none;';
+	var dataUrl = window.URL.createObjectURL(data);
+	downloadLink.href = dataUrl;
+	downloadLink.download = filename;
+	downloadLink.click();
+	downloadLink.remove();
+}
+
 appControllers.controller('reportController', function($scope, userService) {
 	$scope.getAttendees = userService.getAttendees;
 	$scope.downloadAttendeesJson = function() {
-		var fileName = 'attendees.json';
-		var downloadLink = document.createElement('a');
-		document.body.appendChild(downloadLink);
-		downloadLink.style = 'display: none;';
 		var data = new Blob([JSON.stringify({attendees : $scope.getAttendees().all()})], {type: 'application/json'});
-		var dataUrl = window.URL.createObjectURL(data);
-		downloadLink.href = dataUrl;
-		downloadLink.download = fileName;
-		downloadLink.click();
-		downloadLink.remove();
+		makeDownload(data, 'attendees.json');
 	}
 	$scope.totalBBQ = function() { return userService.getAttendees().all().filter(p => p.boughtBBQ).length; }
 	$scope.totalDrinks =  function() {
@@ -75,5 +78,15 @@ appControllers.controller('reportController', function($scope, userService) {
 		for  (var i = 0; i < data.length; i++)
 			d += data[i].drinks;
 		return d;
+	}
+	$scope.downloadAttendeesCsv = function() {
+		var output = "FirstName,LastName,Access,BoughtBBQ,Drinks\n";
+		var data = userService.getAttendees().all();
+		for (var i = 0; i < data.length; i++){
+			var p = data[i];
+			output += [p.first, p.last, p.access, p.boughtBBQ, p.drinks].join(',') + '\n';
+		}
+		outputBlob = new Blob([output], {type:'text/csv'});
+		makeDownload(outputBlob, 'attendees.csv');
 	}
 });
