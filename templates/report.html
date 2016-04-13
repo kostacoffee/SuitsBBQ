@@ -19,8 +19,7 @@
 <md-content flex layout-padding>
 	<div layout='row' layout-align='space-around center'>
 		<label>Total Attendees: {{getAttendees().all().length}}</label>
-		<label>Members: {{getAttendees().members().length}}</label>
-		<label>Non-Members: {{getAttendees().nonMembers().length}}</label>
+		<label>Access: {{getAttendees().access().length}}</label>
 		<label>Non-Access: {{getAttendees().nonAccess().length}}</label>
 	</div>
 	<div layout='row' layout-align='center center' class='attendees-list-container' flex>

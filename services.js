@@ -25,7 +25,7 @@ appServices.service('userService', function($http){
 				return members.filter(member => (member.drinks > 0 || member.boughtBBQ));
 			},
 			members : function() {
-				return this.all().filter(member => (member.isMember || member.access != null));	//all members must have access
+				return this.all().filter(member => (member.isMember));
 			},
 			nonMembers: function() {
 				return this.all().filter(member => (!member.isMember));
