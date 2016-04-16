@@ -1,40 +1,50 @@
 <style>
-	.centeredInput{
-		max-width: 30%;
-		display: flex;
-		margin: auto;
-		margin-top: 1em;
-	}
-	.no-error .md-errors-spacer {
-	    min-height: 0;
-	}
 	.right-button{
 		margin-right: 38px;
 		background-color: rgb(63,81,181)!important; /* matches the toolbar */
 	}
+	.members-list-card{
+		max-width: 500px;
+	}
+
+	.fab-container{
+		position: absolute;
+		top:0;
+		right:0;
+	}
 </style>
 <md-content flex layout-padding>
-	<div layout='row'>
-		<md-input-container layout-align='center' class='centeredInput no-error'>
-			<label>Search</label>
-			<input ng-model='nameFilter'>
-		</md-input-container>
-		<md-button class='md-fab md-mini right-button md-whiteframe-24dp' md-ink-ripple ng-click='addAttendee($event)' aria-label='Add Attendee'>
+	<div layout='row' layout-align='center center' flex>
+		<md-autocomplete
+			placeholder='Search'
+			md-items='{}'
+			md-item-text=''
+			md-search-text='nameFilter' class='members-list-card' flex>
+		</md-autocomplete>
+	</div>
+	<div class='fab-container'>
+		<md-button class='md-fab right-button md-whiteframe-24d p' md-ink-ripple ng-click='addAttendee($event)' aria-label='Add Attendee'>
 			<md-tooltip>
 				Add Attendee
 			</md-tooltip>
 			<md-icon md-svg-icon='account-plus'></md-icon>
-		</md-button>	
+		</md-button>
 	</div>
 	<md-progress-circular  md-mode='indeterminate' ng-show='isLoading' style='margin: auto'></md-progress-circular>
-	<md-list layout='column'>
-		<md-list-item class='md-2-line md-clickable' md-ink-ripple ng-repeat='user in users | filter:nameFilter | limitTo:9' layout='row' ng-click='showDialog($event, user)'>
-			<div class='md-list-item-text' layout='column'>
-				<h3>{{user.first | capitalize}} {{user.last | capitalize}}</h3>
-				<p ng-if='user.access != null'>{{user.access}}</p>
-				<p ng-if='user.access == null'>NO ACCESS</p>
-			</div>
-			<md-checkbox ng-class='(user.boughtBBQ || user.drinks > 0)? "md-checked":""' disabled class='md-secondatry'>
-		</md-list-item>
-	</md-list>
+	<div layout='row' layout-align='center center' flex>
+		<md-card flex class='members-list-card'>
+			<md-card-content>
+				<md-list layout='column'>
+					<md-list-item class='md-2-line md-clickable' md-ink-ripple ng-repeat='user in users | filter:nameFilter | limitTo:8' layout='row' ng-click='showDialog($event, user)'>
+						<div class='md-list-item-text' layout='column'>
+							<h3>{{user.first | capitalize}} {{user.last | capitalize}}</h3>
+							<p ng-if='user.access != null'>{{user.access}}</p>
+							<p ng-if='user.access == null'>NO ACCESS</p>
+						</div>
+						<md-checkbox ng-class='(user.boughtBBQ || user.drinks > 0)? "md-checked":""' disabled class='md-secondatry'>
+					</md-list-item>
+				</md-list>
+			</md-card-content>
+		</md-card>
+	</div>
 </md-content>

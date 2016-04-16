@@ -2,7 +2,7 @@ var appControllers = angular.module('appControllers', []);
 
 appControllers.controller('viewUsers', function($scope, $mdDialog, userService){
 	$scope.isLoading = true;
-	userService.getUsers().then(function(members) { 
+	userService.getUsers().then(function(members) {
 		$scope.users = members;
 		$scope.isLoading = false;
 	});
@@ -43,7 +43,7 @@ appControllers.controller('addAttendeeController', function($scope, $mdDialog){
 	$scope.cancel = function() {
 		$mdDialog.cancel();
 	}
-	$scope.attendee = {}; 
+	$scope.attendee = {};
 });
 
 appControllers.controller('attendanceDialogController', function($scope, $mdDialog, user){
@@ -86,6 +86,14 @@ appControllers.controller('reportController', function($scope, userService) {
 			var p = data[i];
 			output += [p.first, p.last, p.access, p.boughtBBQ, p.drinks].join(',') + '\n';
 		}
+		//summary data
+		output += "\n";
+		output += "TotalAttendees," + data.length + "\n";
+		output += "Access," + userService.getAttendees().access().length + "\n";
+		output += "NonAccess," + userService.getAttendees().nonAccess().length + "\n";
+		output += "TotalBBQ," + $scope.totalBBQ() + "\n";
+		output += "TotalDrinks," + $scope.totalDrinks() + "\n";
+
 		outputBlob = new Blob([output], {type:'text/csv'});
 		makeDownload(outputBlob, 'attendees.csv');
 	}

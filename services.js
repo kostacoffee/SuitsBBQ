@@ -11,11 +11,18 @@ appServices.service('userService', function($http){
 			members = response.data.members;
 			for (var i = 0; i < members.length; i++){
 				var member = members[i];
+				delete member.degree;
+				delete member.year;
+				delete member.gets_newsletter;
+				delete member.level;
+				delete member.international;
+				delete member.when_joined;
+				delete member.email;
 				member.boughtBBQ = false;
 				member.drinks = 0;
 				member.isMember = true;
 			}
-			return members; 
+			return members;
 		});
 	}
 

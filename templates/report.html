@@ -15,6 +15,9 @@
 	.bbq-check{
 		padding-left: 0.1em;
 	}
+	md-content{
+		background-color: #f5f5f5;
+	}
 </style>
 <md-content flex layout-padding>
 	<div layout='row' layout-align='space-around center'>
@@ -39,7 +42,7 @@
 			</md-card-title>
 			<md-divider></md-divider>
 			<md-card-content layout='column' class='attendees-list'>
-				<md-list layout='column'>			
+				<md-list layout='column'>
 					<md-list-item class='md-2-line' ng-repeat='attendee in getAttendees().all()' layout='row'>
 						<div class='md-list-item-text' layout='column'>
 							<h3>{{attendee.access}}</h3>
