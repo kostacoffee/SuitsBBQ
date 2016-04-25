@@ -1,2 +1,6 @@
 Integrate with Firebase, so we dont have to save jsons all the time.
 Reduce wasted whitespace.
+Record free drinks with t-shirts
+Automatically add the data to the BBQ Google Sheet or to the shared SUITS folder (I think the API allows for this)
+Generalise this app so we can also use it with boardgames nights and other events with different pricing
+* e.g. for boardgames it is sometimes free/$6 or $2/$8
