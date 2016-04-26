@@ -91,7 +91,8 @@ appControllers.controller('reportController', function($scope, userService) {
 		output += "TotalAttendees," + data.length + "\n";
 		output += "Access," + userService.getAttendees().access().length + "\n";
 		output += "NonAccess," + userService.getAttendees().nonAccess().length + "\n";
-		output += "TotalBBQ," + $scope.totalBBQ() + "\n";
+		output += "AccessBBQ," + userService.getAttendees().access().filter(member => (member.boughtBBQ)).length;
+		output += ",,NonAccessBBQ," + userService.getAttendees().nonAccess().filter(member => (member.boughtBBQ)).length + "\n";
 		output += "TotalDrinks," + $scope.totalDrinks() + "\n";
 
 		outputBlob = new Blob([output], {type:'text/csv'});
