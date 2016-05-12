@@ -5,7 +5,7 @@ appServices.service('userService', function($http){
 	this.getUsers = function() {
 		return $http({
 			method: 'GET',
-			url: 'https:/members.suits.org.au/query',
+			url: 'https://members.suits.org.au/query',
 			withCredentials: true
 		}).then(function(response) {
 			members = response.data.members;
