@@ -1,4 +1,4 @@
-var app = angular.module('main', ['ngMaterial', 'appServices', 'appControllers'])
+var app = angular.module('main', ['ngMaterial', 'appServices', 'appControllers', 'firebase'])
 
 app.config(function($mdIconProvider) {
 	$mdIconProvider.defaultIconSet('/static/material-icons.svg');
