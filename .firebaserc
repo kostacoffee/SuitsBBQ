@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "suits-bbq": "firebase-suits-bbq",
+    "default": "firebase-suits-bbq"
+  }
+}

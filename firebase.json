@@ -1,9 +1,18 @@
 {
-  "firebase": "suits-bbq",
-  "public": ".",
   "ignore": [
     "firebase.json",
-	"**/templates/",
-	"**/.*"
-  ]
+    "**/templates/",
+    "**/.*",
+    "cleanup",
+    "deploy",
+    "render",
+    "README.md",
+    "wishlist.txt"
+  ],
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "hosting": {
+    "public": "public"
+  }
 }

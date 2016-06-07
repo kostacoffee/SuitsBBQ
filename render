@@ -1,1 +1,1 @@
-pug --doctype=html templates/ -o .
+pug --doctype=html templates/ -o public/

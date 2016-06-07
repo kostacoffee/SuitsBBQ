@@ -37,4 +37,4 @@ md-content(flex, layout-padding)
 							h3 {{user.first | capitalize}} {{user.last | capitalize}}
 							p(ng-if='user.access != null') {{user.access}}
 							p(ng-if='user.access == null') NO ACCESS
-						md-checkbox.md-secondary(ng-class!='(user.boughtBBQ || user.drinks > 0)? "md-checked":""', disabled)
+						md-checkbox.md-secondary(ng-class="(user.boughtBBQ || user.drinks > 0)? 'md-checked':''", disabled)
