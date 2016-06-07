@@ -9,7 +9,7 @@ appControllers.controller('viewUsers', function($scope, $mdDialog, userService){
 	$scope.showDialog = function (ev, user) {
 		$mdDialog.show({
 			controller : 'attendanceDialogController',
-			templateUrl : '/templates/attendanceDialog.html',
+			templateUrl : '/components/attendanceDialog.html',
 			parent : angular.element(document.body),
 			clickOutsideToClose : true,
 			targetEvent : ev,
@@ -21,7 +21,7 @@ appControllers.controller('viewUsers', function($scope, $mdDialog, userService){
 	$scope.addAttendee = function(ev) {
 		$mdDialog.show({
 			controller : 'addAttendeeController',
-			templateUrl : '/templates/addAttendeeDialog.html',
+			templateUrl : '/components/addAttendeeDialog.html',
 			parent : angular.element(document.body),
 			clickOutsideToClose : true,
 			targetEvent : ev

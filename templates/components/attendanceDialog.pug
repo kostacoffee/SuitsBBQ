@@ -1,0 +1,11 @@
+md-dialog(layout-padding)
+	form(name='attendanceForm')
+		md-checkbox(ng-model='user.boughtBBQ', layout-padding)
+			label Bought BBQ
+
+		p Drinks Purchased
+
+		md-radio-group(ng-model='user.drinks', layout='row')
+			md-radio-button(ng-repeat="num in [0, 1, 2, 3]", value="{{num}}") {{num}}
+
+		md-button(ng-click='hide()') Close

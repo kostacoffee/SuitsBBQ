@@ -1,0 +1,40 @@
+style.
+	.right-button{
+		margin-right: 38px;
+		background-color: rgb(63,81,181)!important; /* matches the toolbar */
+	}
+	.members-list-card{
+		max-width: 500px;
+	}
+
+	.fab-container{
+		position: absolute;
+		top:0;
+		right:0;
+	}
+md-content(flex, layout-padding)
+
+	div(layout='row', layout-align='center center', flex)
+		md-autocomplete(
+			placeholder='Search',
+			md-items='{}',
+			md-item-text='',
+			md-search-text='nameFilter' class='members-list-card',
+			flex)
+
+	div.fab-container
+		md-button.md-fab.right-button.md-whiteframe-24dp(md-ink-ripple, ng-click='addAttendee($event)', aria-label='Add Attendee')
+			md-tooltip Add Attendee
+			md-icon(md-svg-icon='account-plus')
+
+	md-progress-circular(md-mode='indeterminate', ng-show='isLoading', style='margin: auto')
+	div(layout='row', layout-align='center center', flex)
+		md-card.members-list-card(flex)
+			md-card-content
+				md-list(layout='column')
+					md-list-item.md-2-line.md-clickable(md-ink-ripple, ng-repeat='user in users | filter:nameFilter | limitTo:8', layout='row', ng-click='showDialog($event, user)')
+						div.md-list-item-text(layout='column')
+							h3 {{user.first | capitalize}} {{user.last | capitalize}}
+							p(ng-if='user.access != null') {{user.access}}
+							p(ng-if='user.access == null') NO ACCESS
+						md-checkbox.md-secondary(ng-class!='(user.boughtBBQ || user.drinks > 0)? "md-checked":""', disabled)
