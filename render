@@ -1,1 +1,0 @@
-pug --doctype=html templates/ -o public/

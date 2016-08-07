@@ -1,4 +1,0 @@
-./render
-firebase deploy
-echo cleaning up
-./cleanup
